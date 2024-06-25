@@ -1,0 +1,110 @@
+[gd_scene load_steps=18 format=3 uid="uid://cr18j7tp7c2gb"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_0latk"]
+[ext_resource type="Texture2D" uid="uid://cygv6va07a827" path="res://assets/player_idle-01.png" id="1_5tl5g"]
+[ext_resource type="Texture2D" uid="uid://pprymfll6xm8" path="res://assets/player_idle-02.png" id="2_2imup"]
+[ext_resource type="Texture2D" uid="uid://2hytw5mf332" path="res://assets/player_idle-03.png" id="3_h5bac"]
+[ext_resource type="Texture2D" uid="uid://ders0i18yuvii" path="res://assets/player_move-01.png" id="4_tnj2a"]
+[ext_resource type="Texture2D" uid="uid://ddhvkm02crdyg" path="res://assets/player_move-02.png" id="5_62a4c"]
+[ext_resource type="Texture2D" uid="uid://suwb8m78h7ty" path="res://assets/player_down-01.png" id="6_es8wo"]
+[ext_resource type="Texture2D" uid="uid://h272s26e08hc" path="res://assets/player_down-02.png" id="7_7cxj6"]
+[ext_resource type="Texture2D" uid="uid://bv22jkmqp6855" path="res://assets/player_up-01.png" id="8_o1kck"]
+[ext_resource type="Texture2D" uid="uid://dil2qiwuadvwv" path="res://assets/player_up-02.png" id="9_1d0tg"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nd1cm"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_c1uwr"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t7l3q"]
+
+[sub_resource type="BitMap" id="BitMap_tsv3r"]
+resource_local_to_scene = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ykaxa"]
+radius = 80.97
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1ajxt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5tl5g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_2imup")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h5bac")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_tnj2a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_62a4c")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_es8wo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7cxj6")
+}],
+"loop": true,
+"name": &"movie_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_o1kck")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_1d0tg")
+}],
+"loop": true,
+"name": &"movie_up",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o2gqh"]
+radius = 26.6833
+
+[node name="Player" type="Area2D"]
+position = Vector2(234, 332)
+collision_mask = 2
+script = ExtResource("1_0latk")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+modulate = Color(0.247059, 0.227451, 1, 1)
+self_modulate = Color(1, 0.0705882, 0.372549, 1)
+show_behind_parent = true
+material = SubResource("CanvasItemMaterial_nd1cm")
+position = Vector2(-145, 251)
+texture_normal = SubResource("ViewportTexture_c1uwr")
+texture_pressed = SubResource("CompressedTexture2D_t7l3q")
+bitmask = SubResource("BitMap_tsv3r")
+shape = SubResource("CircleShape2D_ykaxa")
+passby_press = true
+action = "move"
+visibility_mode = 1
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 0.5)
+scale = Vector2(0.5, 0.492188)
+sprite_frames = SubResource("SpriteFrames_1ajxt")
+animation = &"movie_down"
+autoplay = "idle"
+frame_progress = 0.762561
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_o2gqh")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

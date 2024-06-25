@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=3 uid="uid://bf6usmklemnw6"]
+
+[ext_resource type="Script" path="res://scenes/hud.gd" id="1_8blng"]
+[ext_resource type="StyleBox" uid="uid://cvr8iediawr83" path="res://button.tres" id="1_ealfu"]
+
+[sub_resource type="SystemFont" id="SystemFont_x2hs4"]
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_runxc"]
+bg_color = Color(0.6, 0.0901961, 0.6, 1)
+border_color = Color(0.227451, 0.8, 0.8, 1)
+border_blend = true
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_8blng")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 42.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.862745, 0.701961, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.6, 0.337255, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_x2hs4")
+theme_override_font_sizes/font_size = 30
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -23.0
+offset_top = -31.0
+offset_right = 23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("1_ealfu")
+theme_override_styles/hover = ExtResource("1_ealfu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_runxc")
+theme_override_styles/focus = ExtResource("1_ealfu")
+text = "Start"
+
+[node name="MessageLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.5
+offset_top = -11.5
+offset_right = 64.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.862745, 0.701961, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.6, 0.337255, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_x2hs4")
+theme_override_font_sizes/font_size = 40
+text = "BUGS AND BUGS"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MessageTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+visibility_mode = 1
+
+[connection signal="pressed" from="Control/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
